@@ -5,10 +5,8 @@ import {
   Cookies, Session, Next, SSR, ResponseBody, ResponseData
 } from "./decorators";
 import { TYPE } from "./constants";
-// import { interfaces } from "./interfaces";
 
 export {
-  // interfaces,
   InversifyExpressServer,
   Controller,
   Method,
@@ -31,7 +29,5 @@ export {
   Next,
   SSR,
   ResponseBody,
-  ResponseBodyAny,
   ResponseData,
-  ResponseDown,
 };

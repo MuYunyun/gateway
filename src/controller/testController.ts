@@ -9,13 +9,21 @@ class TestController {
   // @inject('logger')
   // private logger: LoggerInstance
 
-  @Get('test')
-  public async serviceValidate(
-    @QueryParam('ticket') ticket: string,
-    @Response() res: express.Response,
-    @Request() req: express.Request,
+  @Get('test/get')
+  public async testGet(
+    @QueryParam('abc') abc: string,
+    // @Response() res: express.Response,
+    // @Request() req: express.Request,
     // @Session() session: any,
   ) {
-    console.log('12345', ticket)
+    return 'abc  ' + abc
+  }
+
+  @Post('test/post')
+  public async testPost(
+    @RequestBody('abc') abc: string,
+    // @Session() session: any,
+  ) {
+    return 'abc  ' + abc
   }
 }

@@ -63,6 +63,7 @@ export const Cookies = paramDecoratorFactory(PARAMETER_TYPE.COOKIES);
 export const Session = paramDecoratorFactory(PARAMETER_TYPE.SESSION);
 export const Next = paramDecoratorFactory(PARAMETER_TYPE.NEXT);
 
+// target, name, decorator
 function paramDecoratorFactory(parameterType: PARAMETER_TYPE): (name?: string) => ParameterDecorator { // 返回一个函数
   return (name?: string): ParameterDecorator => { // 返回 ParameterDecorator 类型参数装饰器
     name = name || "default";

@@ -10,6 +10,7 @@ const METADATA_KEY = {
   controllerAfter: '_controller-after',
 }
 
+// 定义枚举类型
 export enum PARAMETER_TYPE {
   REQUEST,
   RESPONSE,
