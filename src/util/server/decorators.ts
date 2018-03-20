@@ -48,9 +48,9 @@ export function Method(method: string, path: string, ...middleware: interfaces.M
     } else {
       metadataList = Reflect.getOwnMetadata(METADATA_KEY.controllerMethod, target.constructor);
     }
-
-    metadataList.push(metadata);
-  };
+    // 这句比较恶心，略过，参考 https://github.com/rbuckton/reflect-metadata/issues/53
+    metadataList.push(metadata)
+  }
 }
 
 export const Request = paramDecoratorFactory(PARAMETER_TYPE.REQUEST);

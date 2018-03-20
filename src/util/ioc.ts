@@ -5,8 +5,8 @@ import getDecorators from 'inversify-inject-decorators';
 let container = new Container();
 let { lazyInject } = getDecorators(container)
 
-let provide = makeProvideDecorator(container);
-let fluentProvider = makeFluentProvideDecorator(container);
+let provide = makeProvideDecorator(container)
+let fluentProvider = makeFluentProvideDecorator(container)
 
 let provideNamed = function (identifier: any, name: string) {
   return fluentProvider(identifier)

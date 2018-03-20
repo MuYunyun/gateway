@@ -49,8 +49,8 @@ export class InversifyExpressServer {
    * @param fn Function in which app-level middleware can be registered.
    */
   public setConfig(fn: interfaces.ConfigFunction): InversifyExpressServer {
-    this._configFn = fn;
-    return this;
+    this._configFn = fn
+    return this
   }
 
   /**
@@ -62,8 +62,8 @@ export class InversifyExpressServer {
    * @param fn Function in which app-level error handlers can be registered.
    */
   public setErrorConfig(fn: interfaces.ConfigFunction): InversifyExpressServer {
-    this._errorConfigFn = fn;
-    return this;
+    this._errorConfigFn = fn
+    return this
   }
 
   /**
@@ -72,68 +72,72 @@ export class InversifyExpressServer {
   public build(): express.Application {
     // register server-level middleware before anything else
     if (this._configFn) {
-      this._configFn.apply(undefined, [this._app]);
+      this._configFn.apply(undefined, [this._app])
     }
 
-    this.registerControllers();
+    this.registerControllers()
 
     // register error handlers after controllers
     if (this._errorConfigFn) {
-      this._errorConfigFn.apply(undefined, [this._app]);
+      this._errorConfigFn.apply(undefined, [this._app])
     }
 
-    return this._app;
+    return this._app
   }
 
   private registerControllers() {
+    // 获取所有注册的 controllers
     let controllers: interfaces.Controller[] = this._container.getAll<interfaces.Controller>(TYPE.Controller);
     controllers.forEach((controller: interfaces.Controller) => {
 
       let controllerMetadata: interfaces.ControllerMetadata = Reflect.getOwnMetadata(
         METADATA_KEY.controller,
         controller.constructor
-      );
+      )
 
+      // 获取一个 controller 里的所有 method
       let methodMetadata: interfaces.ControllerMethodMetadata[] = Reflect.getOwnMetadata(
         METADATA_KEY.controllerMethod,
         controller.constructor
-      );
+      )
 
+      // 获取参数
       let parameterMetadata: interfaces.ControllerParameterMetadata = Reflect.getOwnMetadata(
         METADATA_KEY.controllerParameter,
         controller.constructor
-      );
+      )
 
       if (controllerMetadata && methodMetadata) {
-        let router: express.Router = express.Router();
-        let controllerMiddleware = this.resolveMidleware(...controllerMetadata.middleware);
+        let router: express.Router = express.Router()
+        // 处理中间件
+        let controllerMiddleware = this.resolveMidleware(...controllerMetadata.middleware)
 
         methodMetadata.forEach((metadata: interfaces.ControllerMethodMetadata) => {
-          let paramList: interfaces.ParameterMetadata[] = [];
+          let paramList: interfaces.ParameterMetadata[] = []
           if (parameterMetadata) {
-            paramList = parameterMetadata[metadata.key] || [];
+            paramList = parameterMetadata[metadata.key] || []
           }
 
-          let handler: express.RequestHandler = this.handlerFactory(controllerMetadata.target.name, metadata.key, paramList);
-          let routeMiddleware = this.resolveMidleware(...metadata.middleware);
+          let handler: express.RequestHandler = this.handlerFactory(controllerMetadata.target.name, metadata.key, paramList) // TestController testHello
+          let routeMiddleware = this.resolveMidleware(...metadata.middleware)
           this._router[metadata.method](
             `${controllerMetadata.path}${metadata.path}`,
             ...controllerMiddleware,
             ...routeMiddleware,
             handler
-          );
-        });
+          )
+        })
       }
-    });
-    this._app.use(this._routingConfig.rootPath, this._router);
+    })
+    this._app.use(this._routingConfig.rootPath, this._router)
   }
 
   private resolveMidleware(...middleware: interfaces.Middleware[]): express.RequestHandler[] {
     return middleware.map(middlewareItem => {
       try {
-        return this._container.get<express.RequestHandler>(middlewareItem);
+        return this._container.get<express.RequestHandler>(middlewareItem)
       } catch (_) {
-        return middlewareItem as express.RequestHandler;
+        return middlewareItem as express.RequestHandler
       }
     });
   }
@@ -177,29 +181,14 @@ export class InversifyExpressServer {
         }
         controllerAfterMetadata ? controllerAfterMetadata(error, req, res, next) : next(error)
       }
-      // try to resolve promise
-      // if (result && isPromise(result)) {
-
-      //     result.then((value: any) => {
-      //         if (value && !res.headersSent) {
-      //             res.send(value);
-      //         }
-      //     })
-      //     .catch((error: any) => {
-      //        next(error);
-      //     });
-
-      // } else if (result && !res.headersSent) {
-      //     res.send(result);
-      // }
-    };
+    }
   }
 
   private extractParameters(req: express.Request, res: express.Response, next: express.NextFunction,
     params: interfaces.ParameterMetadata[]): any[] {
-    let args = [];
+    let args = []
     if (!params || !params.length) {
-      return [req, res, next];
+      return [req, res, next]
     }
     for (let item of params) {
 
@@ -219,12 +208,12 @@ export class InversifyExpressServer {
       }
 
     }
-    args.push(req, res, next);
-    return args;
+    args.push(req, res, next)
+    return args
   }
 
   private getParam(source: any, paramType: string, name: string) {
-    let param = source[paramType] || source;
-    return param[name];
+    let param = source[paramType] || source
+    return param[name]
   }
 }
