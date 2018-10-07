@@ -6,5 +6,5 @@ import './loader'
 
 export default function(app: Application) {
   const server = new InversifyExpressServer(container, null, null, app)
-  server.build().listen('3000')
+  server.build().listen('4000')
 }

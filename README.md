@@ -1,17 +1,19 @@
-# gateway
-
-配合 [reactSPA](https://github.com/MuYunyun/reactSPA) 使用的服务端(网关层)项目
+配合 [reactSPA](https://github.com/MuYunyun/reactSPA) 使用的网关项目(TypeScript + Node.js)
 
 ### Usage
 
+执行以下命令
+
 ```
-本地运行
-npm start        启动服务器
-npm run compile  编译 ts 成 js 文件
+npm start
+npm run compile
 ```
 
-### Tech Stack
+在浏览器中输入 http://localhost:4000/api/music/list 能获得相应的音乐列表的数据
 
-- [x] TypeScript + Node.js
-- [ ] 跨域
-- [ ] 尝试 React 服务端渲染
+### todo
+
+日后会产出相应的文章。计划分享的点如下：
+
+- [ ] ioc 模式实践
+- [ ] rpc 调用 dubbo 服务
