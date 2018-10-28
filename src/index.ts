@@ -1,12 +1,21 @@
+import "reflect-metadata"
 import * as express from 'express'
-
-import bootstrap from './util/bootstrap'
-import { mountMiddlewares } from './middleware'
+import * as bodyParse from 'body-parser'
+import { accesscors } from './middleware/cors'
+import { InversifyExpressServer } from './util/server'
+import { container } from './util/ioc'
+import './controller/index'
 
 const app = express()
 
-// mount all middlewares
-mountMiddlewares(app)
+// 跨域
+accesscors(app)
+// 处理 post 请求
+app.use(bodyParse.urlencoded({
+  extended: true,
+  limit: 10 * 1024 * 1024,
+}))
 
 // initialized ioc container and start express application
-bootstrap(app)
+const server = new InversifyExpressServer(container, app)
+server.build().listen('4000')

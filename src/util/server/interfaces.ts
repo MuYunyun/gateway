@@ -41,14 +41,9 @@ declare namespace interfaces {
     (target: any, key: string, value: any): void;
   }
 
-  export interface ConfigFunction {
-    (app: express.Application): void;
-  }
-
   export interface RoutingConfig {
     rootPath: string;
   }
-
 }
 
 export { interfaces }

@@ -11,9 +11,17 @@ npm run compile
 
 在浏览器中输入 http://localhost:4000/api/music/list 能获得相应的音乐列表的数据
 
+### 装饰器用法解释
+
+| 装饰器 | 表示 | 用法 |
+|:---:|:---:|:---:|
+| Controller | 抽离公共路由部分 | @Controller('/') |
+
 ### todo
 
-日后会产出相应的文章。计划分享的点如下：
+- [ ] 断点调试
+
+### articles
 
 - [ ] ioc 模式实践
-- [ ] rpc 调用 dubbo 服务
+- [x] [RPC在点我达网关项目的实践一](https://github.com/MuYunyun/blog/blob/master/BasicSkill/系统篇/RPC在点我达网关的实践一.md)
