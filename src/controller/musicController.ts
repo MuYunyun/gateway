@@ -1,8 +1,9 @@
-import { Controller, Get, Post, QueryParam, RequestBody, Session, ResponseBody, TYPE } from '../util/server';
-import { provideNamed, inject, lazyInject, container } from '../util/ioc';
+import { injectable, inject } from "inversify"
+import { container, lazyInject } from '../util/ioc'
+import { Controller, Get, Post, QueryParam, RequestBody, Session, ResponseBody, TYPE } from '../util/server'
 import MusicManager from '../manager/musicManager'
 
-@provideNamed(TYPE.Controller, 'MusicController')
+@injectable()
 @Controller('/')
 class MusicController {
 
@@ -14,15 +15,16 @@ class MusicController {
     @QueryParam('title') title: string,
     // @Session() session: any,
   ) {
-    const result = await this.musicManager.getList()
+    const result = await this.musicManager.getList(title)
     return result
   }
 
   @Post('test/post')
   public async testPost(
     @RequestBody('abc') abc: string,
-    // @Session() session: any,
   ) {
-    return 'abc  ' + abc
+    return 'abc' + abc
   }
 }
+
+container.bind(TYPE.Controller).to(MusicController)

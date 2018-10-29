@@ -27,9 +27,7 @@ export class InversifyExpressServer {
     this._app = customApp || express()
   }
 
-  /**
-   * Applies all routes and configuration to the server, returning the express application.
-   */
+  // Applies all routes and configuration to the server, returning the express application.
   public build(): express.Application {
     this.registerControllers()
     return this._app
