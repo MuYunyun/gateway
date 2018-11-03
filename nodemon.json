@@ -2,9 +2,6 @@
   "watch": "./dist",
   "restartable": "rs",
   "verbose": true,
-  "env": {
-    "NODE_ENV": "localdev"
-  },
   "execMap": {
     "js": "node --inspect=9229"
   },

@@ -1,6 +1,7 @@
 // import { Controller, Get, Post, QueryParam, RequestBody, Session, ResponseBody, TYPE } from '../util/server';
-// import { provideNamed, inject, lazyInject, container } from '../util/ioc';
+// import { provideNamed, lazyInject, container } from '../util/ioc';
 // import MusicManager from '../manager/musicManager'
+// import { inject } from 'inversify'
 
 // @provideNamed(TYPE.Controller, 'MusicController')
 // @Controller('/')
@@ -14,7 +15,7 @@
 //     @QueryParam('title') title: string,
 //     // @Session() session: any,
 //   ) {
-//     const result = await this.musicManager.getList()
+//     const result = await this.musicManager.getList('卡路里')
 //     return result
 //   }
 

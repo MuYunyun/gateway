@@ -8,7 +8,6 @@ declare namespace interfaces {
 
   export interface ControllerMetadata {
     path: string;
-    middleware: Middleware[];
     target: any;
   }
 

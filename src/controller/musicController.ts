@@ -8,7 +8,7 @@ import MusicManager from '../manager/musicManager'
 class MusicController {
 
   @inject('MusicManager')
-  private musicManager: MusicManager
+  musicManager: MusicManager
 
   @Get('api/music/list')
   public async testGet(
@@ -19,12 +19,12 @@ class MusicController {
     return result
   }
 
-  @Post('test/post')
-  public async testPost(
-    @RequestBody('abc') abc: string,
-  ) {
-    return 'abc' + abc
-  }
+  // @Post('test/post')
+  // public async testPost(
+  //   @RequestBody('abc') abc: string,
+  // ) {
+  //   return 'abc' + abc
+  // }
 }
 
 container.bind(TYPE.Controller).to(MusicController)

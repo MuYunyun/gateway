@@ -17,11 +17,8 @@
   "devDependencies": {
     "@types/cors": "^2.8.3",
     "@types/node": "^9.3.0",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.18.5",
     "typescript": "^2.6.2"
-  },
-  "nodemonConfig": {
-    "watch": "./dist"
   },
   "dependencies": {
     "@types/express": "^4.11.0",

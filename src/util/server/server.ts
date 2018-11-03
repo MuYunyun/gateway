@@ -34,7 +34,7 @@ export class InversifyExpressServer {
   }
 
   private registerControllers() {
-    // 获取所有注册的 controllers
+    // 获取所有依赖注入的 controllers，即依赖查询
     let controllers: interfaces.Controller[] = this._container.getAll<interfaces.Controller>(TYPE.Controller)
     controllers.forEach((controller: interfaces.Controller) => {
 
@@ -74,14 +74,15 @@ export class InversifyExpressServer {
   }
 
   private handlerFactory(controllerName: any, key: string, parameterMetadata: interfaces.ParameterMetadata[]): express.RequestHandler {
+    console.log('controllerName', controllerName)
     let controller = this._container.getNamed(TYPE.Controller, controllerName)
-
+    console.log('999', controller)
     return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      let args = this.extractParameters(req, res, next, parameterMetadata);
+      let args = this.extractParameters(req, res, next, parameterMetadata)
       let action = controller[key].bind(controller)
       let result: any
       try {
-        result = await action(...args);
+        result = await action(...args)
         result && res.send(result)
       } catch (error) {
         next(error)
@@ -89,6 +90,7 @@ export class InversifyExpressServer {
     }
   }
 
+  // 处理函数参数
   private extractParameters(req: express.Request, res: express.Response, next: express.NextFunction,
     params: interfaces.ParameterMetadata[]): any[] {
     let args = []

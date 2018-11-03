@@ -1,4 +1,6 @@
-可搭配 [reactSPA](https://github.com/MuYunyun/reactSPA) 一起使用
+基于 IoC 模式搭建的网关应用。
+
+> 可搭配 [reactSPA](https://github.com/MuYunyun/reactSPA) 一起使用
 
 ### 技术栈
 
@@ -23,9 +25,8 @@ npm run compile
 
 ### todo
 
-- [ ] nodemon 文档阅读，3星
 - [ ] 分析 injectable、inject、container，5星
-- [ ] 分析字符请求类型会转换的问题，5星
+- [ ] 分析字符请求类型会转换的问题，4星
 
 ### articles
 

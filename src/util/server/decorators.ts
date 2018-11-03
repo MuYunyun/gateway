@@ -2,24 +2,24 @@ import * as express from "express"
 import { interfaces } from "./interfaces"
 import { METADATA_KEY, PARAMETER_TYPE } from "./constants"
 
-export function Controller(path: string = '', ...middleware: interfaces.Middleware[]) {
+export function Controller(path: string = '') {
   return (target: any) => {
-    const metadata: interfaces.ControllerMetadata = { path, middleware, target }
+    const metadata: interfaces.ControllerMetadata = { path, target }
     Reflect.defineMetadata(METADATA_KEY.controller, metadata, target)
   }
 }
 
-export function Get(path: string, ...middleware: interfaces.Middleware[]): interfaces.HandlerDecorator {
-  return Method("get", path, ...middleware)
+export function Get(path: string): interfaces.HandlerDecorator {
+  return Method("get", path)
 }
 
-export function Post(path: string, ...middleware: interfaces.Middleware[]): interfaces.HandlerDecorator {
-  return Method("post", path, ...middleware)
+export function Post(path: string): interfaces.HandlerDecorator {
+  return Method("post", path)
 }
 
-export function Method(method: string, path: string, ...middleware: interfaces.Middleware[]): interfaces.HandlerDecorator {
-  return (target: any, key: string, value: any) => {
-    const metadata: interfaces.ControllerMethodMetadata = { path, middleware, method, target, key }
+export function Method(method: string, path: string): interfaces.HandlerDecorator {
+  return (target: any, key: string, descriptor: any) => {
+    const metadata: interfaces.ControllerMethodMetadata = { path, method, target, key }
     let metadataList: interfaces.ControllerMethodMetadata[] = []
 
     if (!Reflect.hasOwnMetadata(METADATA_KEY.controllerMethod, target.constructor)) {
@@ -27,7 +27,6 @@ export function Method(method: string, path: string, ...middleware: interfaces.M
     } else {
       metadataList = Reflect.getOwnMetadata(METADATA_KEY.controllerMethod, target.constructor)
     }
-    // 这句比较恶心，略过，参考 https://github.com/rbuckton/reflect-metadata/issues/53
     metadataList.push(metadata)
   }
 }
@@ -36,9 +35,8 @@ export const QueryParam = paramDecoratorFactory(PARAMETER_TYPE.QUERY)
 export const RequestBody = paramDecoratorFactory(PARAMETER_TYPE.BODY)
 export const Session = paramDecoratorFactory(PARAMETER_TYPE.SESSION)
 
-// target, name, decorator
-function paramDecoratorFactory(parameterType: PARAMETER_TYPE): (name?: string) => ParameterDecorator { // 返回一个函数
-  return (name?: string): ParameterDecorator => { // 返回 ParameterDecorator 类型参数装饰器
+function paramDecoratorFactory(parameterType: PARAMETER_TYPE): (name?: string) => ParameterDecorator {
+  return (name?: string): ParameterDecorator => {
     name = name || "default"
     return Params(parameterType, name)
   }
@@ -80,7 +78,7 @@ export const ResponseBody = After((result, req, res) => {
   if (result instanceof Error) {
     res.json({
       status: 0,
-      msg: '文本地址重复，请在原地址上修改或者维护新的地址',
+      msg: result,
     })
     return
 }})

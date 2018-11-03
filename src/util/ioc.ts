@@ -14,5 +14,5 @@ let provide = makeProvideDecorator(container)
 //     .done()
 // }
 
-// export { container, provide, provideNamed, inject, lazyInject, injectable }
+// export { container, provide, provideNamed, lazyInject }
 export { container, provide, lazyInject }
