@@ -17,21 +17,10 @@ npm run compile
 
 试试在浏览器请求接口 `http://localhost:4000/api/music/list?title=卡路里`
 
-<!-- ### 装饰器用法解释
-
-| 装饰器 | 表示 | 用法 |
-|:---:|:---:|:---:|
-| Controller | 抽离公共路由部分 | @Controller('/') | -->
-
-### todo
-
-- [ ] 分析 injectable、inject、container，5星
-- [ ] 分析字符请求类型会转换的问题，4星
-
 ### articles
 
-- [ ] ioc 模式实践
-- [x] [RPC在点我达网关项目的实践一](https://github.com/MuYunyun/blog/blob/master/BasicSkill/系统篇/RPC在点我达网关的实践一.md)
+* [解读 IoC 框架 —— InversifyJS](https://github.com/MuYunyun/blog/blob/master/BasicSkill/系统架构篇/解读IoC框架InversifyJS.md)
+* [RPC在点我达网关项目的实践一](https://github.com/MuYunyun/blog/blob/master/BasicSkill/系统篇/RPC在点我达网关的实践一.md)
 
 ### 踩坑记录
 
